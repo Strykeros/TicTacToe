@@ -194,7 +194,6 @@ namespace TicTacToe
             WinnerCellsChangeColor();
             MessageBox.Show(winner + " wins!");
             RestartGame();
-            
         }
 
         private void UpdateScoreOLabel()
