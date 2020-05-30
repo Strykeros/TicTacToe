@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.Grid = new System.Windows.Forms.TableLayoutPanel();
             this.label9 = new System.Windows.Forms.Label();
@@ -36,16 +37,22 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.ScorePlayerX = new System.Windows.Forms.Label();
             this.ScorePlayerO = new System.Windows.Forms.Label();
             this.PlayerTurn = new System.Windows.Forms.Label();
             this.ScoreBackground = new System.Windows.Forms.PictureBox();
             this.ButtonResetScore = new System.Windows.Forms.Button();
+            this.TimerWinner1 = new System.Windows.Forms.Timer(this.components);
+            this.TimerWinner2 = new System.Windows.Forms.Timer(this.components);
+            this.labelWinner = new System.Windows.Forms.Label();
+            this.WinnerBackground = new System.Windows.Forms.PictureBox();
+            this.ButtonRestartGame = new System.Windows.Forms.Button();
             this.Grid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ScoreBackground)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WinnerBackground)).BeginInit();
             this.SuspendLayout();
             // 
             // Grid
@@ -60,8 +67,8 @@
             this.Grid.Controls.Add(this.label6, 2, 1);
             this.Grid.Controls.Add(this.label5, 1, 1);
             this.Grid.Controls.Add(this.label4, 0, 1);
-            this.Grid.Controls.Add(this.label3, 2, 0);
             this.Grid.Controls.Add(this.label2, 1, 0);
+            this.Grid.Controls.Add(this.label3, 2, 0);
             this.Grid.Controls.Add(this.label1, 0, 0);
             this.Grid.Location = new System.Drawing.Point(-9, 83);
             this.Grid.Name = "Grid";
@@ -86,6 +93,7 @@
             this.label9.Text = "D";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label9.Click += new System.EventHandler(this.Player_Click);
+            this.label9.Paint += new System.Windows.Forms.PaintEventHandler(this.label_Paint);
             // 
             // label8
             // 
@@ -99,6 +107,7 @@
             this.label8.Text = "D";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label8.Click += new System.EventHandler(this.Player_Click);
+            this.label8.Paint += new System.Windows.Forms.PaintEventHandler(this.label_Paint);
             // 
             // label7
             // 
@@ -112,6 +121,7 @@
             this.label7.Text = "D";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label7.Click += new System.EventHandler(this.Player_Click);
+            this.label7.Paint += new System.Windows.Forms.PaintEventHandler(this.label_Paint);
             // 
             // label6
             // 
@@ -125,6 +135,7 @@
             this.label6.Text = "D";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label6.Click += new System.EventHandler(this.Player_Click);
+            this.label6.Paint += new System.Windows.Forms.PaintEventHandler(this.label_Paint);
             // 
             // label5
             // 
@@ -138,6 +149,7 @@
             this.label5.Text = "D";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label5.Click += new System.EventHandler(this.Player_Click);
+            this.label5.Paint += new System.Windows.Forms.PaintEventHandler(this.label_Paint);
             // 
             // label4
             // 
@@ -151,19 +163,7 @@
             this.label4.Text = "D";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label4.Click += new System.EventHandler(this.Player_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label3.Location = new System.Drawing.Point(376, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(182, 166);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "D";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label3.Click += new System.EventHandler(this.Player_Click);
+            this.label4.Paint += new System.Windows.Forms.PaintEventHandler(this.label_Paint);
             // 
             // label2
             // 
@@ -177,6 +177,21 @@
             this.label2.Text = "D";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label2.Click += new System.EventHandler(this.Player_Click);
+            this.label2.Paint += new System.Windows.Forms.PaintEventHandler(this.label_Paint);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.label3.Location = new System.Drawing.Point(376, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(182, 166);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "D";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label3.Click += new System.EventHandler(this.Player_Click);
+            this.label3.Paint += new System.Windows.Forms.PaintEventHandler(this.label_Paint);
             // 
             // label1
             // 
@@ -190,6 +205,7 @@
             this.label1.Text = "D";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label1.Click += new System.EventHandler(this.Player_Click);
+            this.label1.Paint += new System.Windows.Forms.PaintEventHandler(this.label_Paint);
             // 
             // ScorePlayerX
             // 
@@ -242,11 +258,53 @@
             this.ButtonResetScore.UseVisualStyleBackColor = true;
             this.ButtonResetScore.Click += new System.EventHandler(this.ButtonResetScore_Click);
             // 
+            // TimerWinner1
+            // 
+            this.TimerWinner1.Interval = 300;
+            this.TimerWinner1.Tick += new System.EventHandler(this.TimerWinner1_Tick);
+            // 
+            // TimerWinner2
+            // 
+            this.TimerWinner2.Interval = 300;
+            this.TimerWinner2.Tick += new System.EventHandler(this.TimerWinner2_Tick);
+            // 
+            // labelWinner
+            // 
+            this.labelWinner.AutoSize = true;
+            this.labelWinner.BackColor = System.Drawing.Color.Transparent;
+            this.labelWinner.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.labelWinner.Location = new System.Drawing.Point(214, 585);
+            this.labelWinner.Name = "labelWinner";
+            this.labelWinner.Size = new System.Drawing.Size(118, 37);
+            this.labelWinner.TabIndex = 6;
+            this.labelWinner.Text = "label10";
+            // 
+            // WinnerBackground
+            // 
+            this.WinnerBackground.Location = new System.Drawing.Point(1, 576);
+            this.WinnerBackground.Name = "WinnerBackground";
+            this.WinnerBackground.Size = new System.Drawing.Size(551, 54);
+            this.WinnerBackground.TabIndex = 7;
+            this.WinnerBackground.TabStop = false;
+            // 
+            // ButtonRestartGame
+            // 
+            this.ButtonRestartGame.Location = new System.Drawing.Point(464, 588);
+            this.ButtonRestartGame.Name = "ButtonRestartGame";
+            this.ButtonRestartGame.Size = new System.Drawing.Size(75, 34);
+            this.ButtonRestartGame.TabIndex = 8;
+            this.ButtonRestartGame.Text = "Restart";
+            this.ButtonRestartGame.UseVisualStyleBackColor = true;
+            this.ButtonRestartGame.Click += new System.EventHandler(this.ButtonRestartGame_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(551, 579);
+            this.ClientSize = new System.Drawing.Size(551, 629);
+            this.Controls.Add(this.ButtonRestartGame);
+            this.Controls.Add(this.labelWinner);
+            this.Controls.Add(this.WinnerBackground);
             this.Controls.Add(this.ButtonResetScore);
             this.Controls.Add(this.PlayerTurn);
             this.Controls.Add(this.ScorePlayerO);
@@ -256,9 +314,11 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "TicTacToe";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.Grid.ResumeLayout(false);
             this.Grid.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ScoreBackground)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WinnerBackground)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -281,6 +341,11 @@
         private System.Windows.Forms.Label PlayerTurn;
         private System.Windows.Forms.PictureBox ScoreBackground;
         private System.Windows.Forms.Button ButtonResetScore;
+        private System.Windows.Forms.Timer TimerWinner1;
+        private System.Windows.Forms.Timer TimerWinner2;
+        private System.Windows.Forms.Label labelWinner;
+        private System.Windows.Forms.PictureBox WinnerBackground;
+        private System.Windows.Forms.Button ButtonRestartGame;
     }
 }
 
