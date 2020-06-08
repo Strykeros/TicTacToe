@@ -61,7 +61,6 @@ namespace TicTacToe
                 Grid.Controls[labelName].ForeColor = Color.Black;
                 Grid.Controls[labelName].BackColor = Color.Transparent;
             }
-
         }
 
         public bool thereIsWinner { get; set; }
