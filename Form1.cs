@@ -64,8 +64,7 @@ namespace TicTacToe
 
         }
 
-        public bool thereIsWinner { get; set; }
-        
+
         private void Player_Click(object sender, EventArgs e)
         {
             
@@ -90,15 +89,34 @@ namespace TicTacToe
             turnCount++;
             PlaySound("click_sound");
             CheckForWin();
-            if(thereIsWinner)
-            {
-                CheckForWin();
-            }
-            if (!thereIsWinner)
-            {
-                CheckForDraw();
-            }
+            CheckForDraw();
             xPlayerTurn = !xPlayerTurn;
+        }
+
+        private void CheckForWin()
+        {
+            if (
+                    (label1.Text == label2.Text && label2.Text == label3.Text && label1.Text != string.Empty) ||
+                    (label4.Text == label5.Text && label5.Text == label6.Text && label4.Text != string.Empty) ||
+                    (label7.Text == label8.Text && label8.Text == label9.Text && label7.Text != string.Empty) ||
+                    (label1.Text == label4.Text && label4.Text == label7.Text && label1.Text != string.Empty) ||
+                    (label2.Text == label5.Text && label5.Text == label8.Text && label2.Text != string.Empty) ||
+                    (label3.Text == label6.Text && label6.Text == label9.Text && label3.Text != string.Empty) ||
+                    (label1.Text == label5.Text && label5.Text == label9.Text && label1.Text != string.Empty) ||
+                    (label3.Text == label5.Text && label5.Text == label7.Text && label3.Text != string.Empty)
+                )
+            {
+                GameOver();
+                label1.Click -= Player_Click;
+                label2.Click -= Player_Click;
+                label3.Click -= Player_Click;
+                label4.Click -= Player_Click;
+                label5.Click -= Player_Click;
+                label6.Click -= Player_Click;
+                label7.Click -= Player_Click;
+                label8.Click -= Player_Click;
+                label9.Click -= Player_Click;
+            }
         }
 
         private void WinnerCellsChangeColor()
@@ -154,12 +172,6 @@ namespace TicTacToe
             snd.Play();
         }
 
-        private void PlayWinnerSound(string winnerSoundName)
-        {
-            System.IO.Stream str = (System.IO.Stream)Properties.Resources.ResourceManager.GetObject(winnerSoundName);
-            System.Media.SoundPlayer snd = new System.Media.SoundPlayer(str);
-            snd.Play();
-        }
 
         private void CheckForDraw()
         {
@@ -177,33 +189,85 @@ namespace TicTacToe
                 labelWinner.Text = "Draw!";
                 this.Size = new Size(567, 668);
             }
-          
-        }
-
-        private void CheckForWin()
-        {
-            if (
-                    (label1.Text == label2.Text && label2.Text == label3.Text && label1.Text != string.Empty) ||
-                    (label4.Text == label5.Text && label5.Text == label6.Text && label4.Text != string.Empty) ||
-                    (label7.Text == label8.Text && label8.Text == label9.Text && label7.Text != string.Empty) ||
-                    (label1.Text == label4.Text && label4.Text == label7.Text && label1.Text != string.Empty) ||
-                    (label2.Text == label5.Text && label5.Text == label8.Text && label2.Text != string.Empty) ||
-                    (label3.Text == label6.Text && label6.Text == label9.Text && label3.Text != string.Empty) ||
-                    (label1.Text == label5.Text && label5.Text == label9.Text && label1.Text != string.Empty) ||
-                    (label3.Text == label5.Text && label5.Text == label7.Text && label3.Text != string.Empty)
-                )
+            if (label3.Text == "X" && label5.Text == "X" && label7.Text == "X")
             {
-               
-                GameOver();
-                label1.Click -= Player_Click;
-                label2.Click -= Player_Click;
-                label3.Click -= Player_Click;
-                label4.Click -= Player_Click;
-                label5.Click -= Player_Click;
-                label6.Click -= Player_Click;
-                label7.Click -= Player_Click;
-                label8.Click -= Player_Click;
-                label9.Click -= Player_Click;
+                this.Size = new Size(567, 668);
+                labelWinner.Text = "X wins!";
+            }
+            if (label3.Text == "O" && label5.Text == "O" && label7.Text == "O")
+            {
+                this.Size = new Size(567, 668);
+                labelWinner.Text = "O wins!";
+            }
+            if (label1.Text == "O" && label4.Text == "O" && label7.Text == "O")
+            {
+                this.Size = new Size(567, 668);
+                labelWinner.Text = "O wins!";
+            }
+            if (label1.Text == "X" && label4.Text == "X" && label7.Text == "X")
+            {
+                this.Size = new Size(567, 668);
+                labelWinner.Text = "X wins!";
+            }
+            if (label2.Text == "O" && label5.Text == "O" && label8.Text == "O")
+            {
+                this.Size = new Size(567, 668);
+                labelWinner.Text = "O wins!";
+            }
+            if (label2.Text == "X" && label5.Text == "X" && label8.Text == "X")
+            {
+                this.Size = new Size(567, 668);
+                labelWinner.Text = "X wins!";
+            }
+            if (label3.Text == "O" && label6.Text == "O" && label9.Text == "O")
+            {
+                this.Size = new Size(567, 668);
+                labelWinner.Text = "O wins!";
+            }
+            if (label3.Text == "X" && label6.Text == "X" && label9.Text == "X")
+            {
+                this.Size = new Size(567, 668);
+                labelWinner.Text = "X wins!";
+            }
+            if (label1.Text == "X" && label5.Text == "X" && label9.Text == "X")
+            {
+                this.Size = new Size(567, 668);
+                labelWinner.Text = "X wins!";
+            }
+            if (label1.Text == "O" && label5.Text == "O" && label9.Text == "O")
+            {
+                this.Size = new Size(567, 668);
+                labelWinner.Text = "O wins!";
+            }
+            if (label1.Text == "X" && label2.Text == "X" && label3.Text == "X")
+            {
+                this.Size = new Size(567, 668);
+                labelWinner.Text = "X wins!";
+            }
+            if (label1.Text == "O" && label2.Text == "O" && label3.Text == "O")
+            {
+                this.Size = new Size(567, 668);
+                labelWinner.Text = "O wins!";
+            }
+            if (label4.Text == "X" && label5.Text == "X" && label6.Text == "X")
+            {
+                this.Size = new Size(567, 668);
+                labelWinner.Text = "X wins!";
+            }
+            if (label4.Text == "O" && label5.Text == "O" && label6.Text == "O")
+            {
+                this.Size = new Size(567, 668);
+                labelWinner.Text = "O wins!";
+            }
+            if (label7.Text == "X" && label8.Text == "X" && label9.Text == "X")
+            {
+                this.Size = new Size(567, 668);
+                labelWinner.Text = "X wins!";
+            }
+            if (label7.Text == "O" && label8.Text == "O" && label9.Text == "O")
+            {
+                this.Size = new Size(567, 668);
+                labelWinner.Text = "O wins!";
             }
         }
 
@@ -214,42 +278,32 @@ namespace TicTacToe
         {
             gameOver = true;
             string winner;
-            
-            if (xPlayerTurn)
+            if(xPlayerTurn)
             {
-                if(thereIsWinner)
-                {
-                    return;
-                }
-                
                 WinnerX = true;
                 WinnerO = false;
                 winner = "X";
             }
             else
             {
-
-                if(thereIsWinner)
-                {
-                    return;
-                }   
                 WinnerO = true;
                 WinnerX = false;
                 winner = "O";
             }
             if(WinnerO && !WinnerX)
             {
-                
+                scoreO += 1;
                 UpdateScoreOLabel();
             }
+            
             if (WinnerX && !WinnerO)
             {
-                
+                scoreX += 1;
                 UpdateScoreXLabel();
             }
+
             WinnerCellsChangeColor();
             this.Size = new Size(567, 668);
-            PlayWinnerSound("cheer3");
             labelWinner.Text = winner + " wins!";
             
         }
@@ -262,21 +316,16 @@ namespace TicTacToe
 
         private void UpdateScoreOLabel()
         {
-            scoreO += 1;
             ScorePlayerO.Text = "Player O score: " + scoreO;
-            thereIsWinner = true;
         }
 
         private void UpdateScoreXLabel()
         {
-            scoreX += 1;
             ScorePlayerX.Text = "Player X score: " + scoreX;
-            thereIsWinner = true;
         }
 
         private void RestartGame()
         {
-            thereIsWinner = false;
             InitializeCells();
             this.Size = new Size(567, 615);
             TimerWinner1.Stop();

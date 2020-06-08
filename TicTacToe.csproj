@@ -32,9 +32,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>Tic-Tac-Toe-Game-red.ico</ApplicationIcon>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -97,12 +94,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\beep_sound.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="cheer3.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Tic-Tac-Toe-Game-red.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
