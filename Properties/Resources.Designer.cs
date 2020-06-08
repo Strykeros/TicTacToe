@@ -63,6 +63,15 @@ namespace TicTacToe.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
+        internal static System.IO.UnmanagedMemoryStream cheer3 {
+            get {
+                return ResourceManager.GetStream("cheer3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
         internal static System.IO.UnmanagedMemoryStream click_sound {
             get {
                 return ResourceManager.GetStream("click_sound", resourceCulture);
