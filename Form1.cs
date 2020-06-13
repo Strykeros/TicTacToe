@@ -12,12 +12,20 @@ namespace TicTacToe
 {
     public partial class Form1 : Form
     {
-        
+
+        private Timer timerAnimation = null;
+        private Timer timerOWinner1 = null;
+        private Timer timerOWinner2 = null;
         bool xPlayerTurn = true;
         int turnCount = 0;
         int scoreO = 0;
         int scoreX = 0;
+        double tickX = 0;
+        double tickO = 0;
         string winner;
+        int pictureCounter = 1;
+        PictureBox picture;
+        
         public Form1()
         {
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -26,6 +34,9 @@ namespace TicTacToe
             InitializeComponent();
             InitializeGrid();
             InitializeCells();
+            InitializeTimerAnimation();
+            InitializeTimerOWinner1();
+            InitializeTimerOWinner2();
         }
 
         private void InitializeGrid()
@@ -44,23 +55,45 @@ namespace TicTacToe
 
         private void InitializeCells()
         {
-            label1.Click += Player_Click;
-            label2.Click += Player_Click;
-            label3.Click += Player_Click;
-            label4.Click += Player_Click;
-            label5.Click += Player_Click;
-            label6.Click += Player_Click;
-            label7.Click += Player_Click;
-            label8.Click += Player_Click;
-            label9.Click += Player_Click;
+            pictureBox1.Click += Player_Click;
+            pictureBox2.Click += Player_Click;
+            pictureBox3.Click += Player_Click;
+            pictureBox4.Click += Player_Click;
+            pictureBox5.Click += Player_Click;
+            pictureBox6.Click += Player_Click;
+            pictureBox7.Click += Player_Click;
+            pictureBox8.Click += Player_Click;
+            pictureBox9.Click += Player_Click;
             string labelName;
             for (int i = 1; i <= 9; i++)
             {
-                labelName = "label" + i;
-                Grid.Controls[labelName].Text = string.Empty;
-                Grid.Controls[labelName].ForeColor = Color.Black;
+                ResetPictureBoxes();
+                labelName = "pictureBox" + i;
+                Grid.Controls[labelName].Tag = String.Empty;
+                Grid.Controls[labelName].ForeColor = Color.LightGreen;
                 Grid.Controls[labelName].BackColor = Color.Transparent;
             }
+        }
+
+        private void InitializeTimerAnimation()
+        {
+            timerAnimation = new Timer();
+            timerAnimation.Interval = 35;
+            timerAnimation.Tick += new EventHandler(TimerAnimation_Tick);
+        }
+
+        private void InitializeTimerOWinner1() 
+        {
+            timerOWinner1 = new Timer();
+            timerOWinner1.Interval = 500;
+            timerOWinner1.Tick += new EventHandler(TimerOWinner1_Tick);
+        }
+
+        private void InitializeTimerOWinner2()
+        {
+            timerOWinner2 = new Timer();
+            timerOWinner2.Interval = 500;
+            timerOWinner2.Tick += new EventHandler(TimerOWinner2_Tick);
         }
 
         public bool thereIsWinner { get; set; }
@@ -69,25 +102,30 @@ namespace TicTacToe
         {
             
 
-            Label label = (Label)sender;
+            PictureBox pic = (PictureBox)sender;
             
-            if (label.Text != String.Empty)
+            if (pic.Tag != String.Empty)
             {
                 return;
             }
             if (xPlayerTurn)
             {
-                label.Text = "X";
+                pic.Tag = "X";
+                picture = pic;
+                timerAnimation.Start();
+                PlayXSound("X_sound");
                 PlayerTurn.Text = "Player O turn";
             }
             else
             {
-                label.Text = "O";
+                pic.Tag = "O";
+                picture = pic;
+                timerAnimation.Start();
+                PlayOSound("O_sound");
                 PlayerTurn.Text = "Player X turn";
             }
             
             turnCount++;
-            PlaySound("click_sound");
             CheckForWin();
             if(thereIsWinner)
             {
@@ -100,53 +138,16 @@ namespace TicTacToe
             xPlayerTurn = !xPlayerTurn;
         }
 
-        private void WinnerCellsChangeColor()
-        {
-            if (label1.Text == label2.Text && label1.Text == label3.Text && label1.Text != "")
-            {
-                ChangeCellColors(label1, label2, label3, Color.Red);
-            }
-            else if (label4.Text == label5.Text && label4.Text == label6.Text && label4.Text != "")
-            {
-                ChangeCellColors(label4, label5, label6, Color.Red);
-            }
-            else if (label7.Text == label8.Text && label7.Text == label9.Text && label7.Text != "")
-            {
-                ChangeCellColors(label7, label8, label9, Color.Red);
-            }
-            else if (label1.Text == label4.Text && label1.Text == label7.Text && label1.Text != "")
-            {
-                ChangeCellColors(label1, label4, label7, Color.Red);
-            }
-            else if (label2.Text == label5.Text && label2.Text == label8.Text && label2.Text != "")
-            {
-                ChangeCellColors(label2, label5, label8, Color.Red);
-            }
-            else if (label3.Text == label6.Text && label3.Text == label9.Text && label3.Text != "")
-            {
-                ChangeCellColors(label3, label6, label9, Color.Red);
-            }
-            else if (label1.Text == label5.Text && label1.Text == label9.Text && label1.Text != "")
-            {
-                ChangeCellColors(label1, label5, label9, Color.Red);
-            }
-            else if (label3.Text == label5.Text && label3.Text == label7.Text && label3.Text != "")
-            {
-               ChangeCellColors(label3, label5, label7, Color.Red);
-            }
 
+
+        private void PlayXSound(string soundName)
+        {
+            System.IO.Stream str = (System.IO.Stream)Properties.Resources.ResourceManager.GetObject(soundName);
+            System.Media.SoundPlayer snd = new System.Media.SoundPlayer(str);
+            snd.Play();
         }
 
-
-        private void ChangeCellColors(Label firstLabel, Label secondLabel, Label thirdLabel, Color color)
-        {
-            firstLabel.ForeColor = color;
-            secondLabel.ForeColor = color;
-            thirdLabel.ForeColor = color;
-        }
-
-
-        private void PlaySound(string soundName)
+        private void PlayOSound(string soundName)
         {
             System.IO.Stream str = (System.IO.Stream)Properties.Resources.ResourceManager.GetObject(soundName);
             System.Media.SoundPlayer snd = new System.Media.SoundPlayer(str);
@@ -163,15 +164,15 @@ namespace TicTacToe
         private void CheckForDraw()
         {
 
-            if (label1.Text != string.Empty &&
-               label2.Text != string.Empty &&
-               label3.Text != string.Empty &&
-               label4.Text != string.Empty &&
-                label5.Text != string.Empty &&
-                label6.Text != string.Empty &&
-                label7.Text != string.Empty &&
-                label8.Text != string.Empty &&
-                label9.Text != string.Empty)
+            if (pictureBox1.Tag != string.Empty &&
+               pictureBox2.Tag != string.Empty &&
+               pictureBox3.Tag != string.Empty &&
+               pictureBox4.Tag != string.Empty &&
+                pictureBox5.Tag != string.Empty &&
+                pictureBox6.Tag != string.Empty &&
+                pictureBox7.Tag != string.Empty &&
+                pictureBox8.Tag != string.Empty &&
+                pictureBox9.Tag != string.Empty)
             {
                 labelWinner.Text = "Draw!";
                 this.Size = new Size(567, 668);
@@ -182,27 +183,17 @@ namespace TicTacToe
         private void CheckForWin()
         {
             if (
-                    (label1.Text == label2.Text && label2.Text == label3.Text && label1.Text != string.Empty) ||
-                    (label4.Text == label5.Text && label5.Text == label6.Text && label4.Text != string.Empty) ||
-                    (label7.Text == label8.Text && label8.Text == label9.Text && label7.Text != string.Empty) ||
-                    (label1.Text == label4.Text && label4.Text == label7.Text && label1.Text != string.Empty) ||
-                    (label2.Text == label5.Text && label5.Text == label8.Text && label2.Text != string.Empty) ||
-                    (label3.Text == label6.Text && label6.Text == label9.Text && label3.Text != string.Empty) ||
-                    (label1.Text == label5.Text && label5.Text == label9.Text && label1.Text != string.Empty) ||
-                    (label3.Text == label5.Text && label5.Text == label7.Text && label3.Text != string.Empty)
+                    (pictureBox1.Tag == pictureBox2.Tag && pictureBox2.Tag == pictureBox3.Tag && pictureBox1.Tag != string.Empty) ||
+                    (pictureBox4.Tag == pictureBox5.Tag && pictureBox5.Tag == pictureBox6.Tag && pictureBox4.Tag != string.Empty) ||
+                    (pictureBox7.Tag == pictureBox8.Tag && pictureBox8.Tag == pictureBox9.Tag && pictureBox7.Tag != string.Empty) ||
+                    (pictureBox1.Tag == pictureBox4.Tag && pictureBox4.Tag == pictureBox7.Tag && pictureBox1.Tag != string.Empty) ||
+                    (pictureBox2.Tag == pictureBox5.Tag && pictureBox5.Tag == pictureBox8.Tag && pictureBox2.Tag != string.Empty) ||
+                    (pictureBox3.Tag == pictureBox6.Tag && pictureBox6.Tag == pictureBox9.Tag && pictureBox3.Tag != string.Empty) ||
+                    (pictureBox1.Tag == pictureBox5.Tag && pictureBox5.Tag == pictureBox9.Tag && pictureBox1.Tag != string.Empty) ||
+                    (pictureBox3.Tag == pictureBox5.Tag && pictureBox5.Tag == pictureBox7.Tag && pictureBox3.Tag != string.Empty)
                 )
             {
-               
                 GameOver();
-                label1.Click -= Player_Click;
-                label2.Click -= Player_Click;
-                label3.Click -= Player_Click;
-                label4.Click -= Player_Click;
-                label5.Click -= Player_Click;
-                label6.Click -= Player_Click;
-                label7.Click -= Player_Click;
-                label8.Click -= Player_Click;
-                label9.Click -= Player_Click;
             }
         }
 
@@ -213,7 +204,7 @@ namespace TicTacToe
         {
             gameOver = true;
             string winner;
-            
+
             if (xPlayerTurn)
             {
                 if(thereIsWinner)
@@ -246,7 +237,7 @@ namespace TicTacToe
                 
                 UpdateScoreXLabel();
             }
-            WinnerCellsChangeColor();
+            
             this.Size = new Size(567, 668);
             PlayWinnerSound("cheer3");
             labelWinner.Text = winner + " wins!";
@@ -276,13 +267,30 @@ namespace TicTacToe
         private void RestartGame()
         {
             thereIsWinner = false;
+            gameOver = false;
             InitializeCells();
             this.Size = new Size(567, 615);
-            TimerWinner1.Stop();
-            TimerWinner2.Stop();
+            TimerXWinner1.Stop();
+            TimerXWinner2.Stop();
+            timerOWinner1.Stop();
+            timerOWinner2.Stop();
             turnCount = 0;
+            tickX = 0;
+            tickO = 0;
         }
 
+        private void ResetPictureBoxes()
+        {
+            pictureBox1.Image = null;
+            pictureBox2.Image = null;
+            pictureBox3.Image = null;
+            pictureBox4.Image = null;
+            pictureBox5.Image = null;
+            pictureBox6.Image = null;
+            pictureBox7.Image = null;
+            pictureBox8.Image = null;
+            pictureBox9.Image = null;
+        }
 
         private void ButtonResetScore_Click(object sender, EventArgs e)
         {
@@ -309,149 +317,434 @@ namespace TicTacToe
 
         }
 
-        private void label_Paint(object sender, PaintEventArgs e)
+        private void PictureBox_Paint(object sender, PaintEventArgs e)
         {
+            PictureBox pict = (PictureBox)sender;
+            if (pict.Tag == "X")
+            {
+                TimerXWinner1.Start();
+            }
+            else
+            {
+                timerOWinner1.Start();
+            }
+        }
+
+        private void TimerAnimation_Tick(object sender, EventArgs e)  //manually created timer
+        {
+            pictureBox1.Click -= Player_Click;
+            pictureBox2.Click -= Player_Click;
+            pictureBox3.Click -= Player_Click;
+            pictureBox4.Click -= Player_Click;
+            pictureBox5.Click -= Player_Click;
+            pictureBox6.Click -= Player_Click;
+            pictureBox7.Click -= Player_Click;
+            pictureBox8.Click -= Player_Click;
+            pictureBox9.Click -= Player_Click;
+            Animate();
+        }
+
+        private void Animate()
+        {
+            string turn;
+            string pictureName;
+            turn = picture.Tag.ToString();
             
-            if (label1.Text == label2.Text && label1.Text == label3.Text && label1.Text != "")
+            if(!xPlayerTurn)
             {
-                TimerWinner1.Start();
+                pictureName = "X_0" + pictureCounter.ToString("00");
+                picture.Image = (Image)Properties.Resources.ResourceManager.GetObject(pictureName);
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureCounter += 1;
+                if (pictureCounter > 15)
+                {
+                    pictureCounter = 1;
+                    pictureBox1.Click += Player_Click;
+                    pictureBox2.Click += Player_Click;
+                    pictureBox3.Click += Player_Click;
+                    pictureBox4.Click += Player_Click;
+                    pictureBox5.Click += Player_Click;
+                    pictureBox6.Click += Player_Click;
+                    pictureBox7.Click += Player_Click;
+                    pictureBox8.Click += Player_Click;
+                    pictureBox9.Click += Player_Click;
+
+                    if (gameOver)
+                    {
+                        pictureBox1.Click -= Player_Click;
+                        pictureBox2.Click -= Player_Click;
+                        pictureBox3.Click -= Player_Click;
+                        pictureBox4.Click -= Player_Click;
+                        pictureBox5.Click -= Player_Click;
+                        pictureBox6.Click -= Player_Click;
+                        pictureBox7.Click -= Player_Click;
+                        pictureBox8.Click -= Player_Click;
+                        pictureBox9.Click -= Player_Click;
+                    }
+                    timerAnimation.Stop();
+                }
             }
-            else if (label4.Text == label5.Text && label4.Text == label6.Text && label4.Text != "")
+            else
             {
-                TimerWinner1.Start();
+                pictureName = "O_0" + pictureCounter.ToString("00");
+                picture.Image = (Image)Properties.Resources.ResourceManager.GetObject(pictureName);
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureCounter += 1;
+                if (pictureCounter > 15)
+                {
+                    pictureCounter = 1;
+                    pictureBox1.Click += Player_Click;
+                    pictureBox2.Click += Player_Click;
+                    pictureBox3.Click += Player_Click;
+                    pictureBox4.Click += Player_Click;
+                    pictureBox5.Click += Player_Click;
+                    pictureBox6.Click += Player_Click;
+                    pictureBox7.Click += Player_Click;
+                    pictureBox8.Click += Player_Click;
+                    pictureBox9.Click += Player_Click;
+
+                    if(gameOver)
+                    {
+                        pictureBox1.Click -= Player_Click;
+                        pictureBox2.Click -= Player_Click;
+                        pictureBox3.Click -= Player_Click;
+                        pictureBox4.Click -= Player_Click;
+                        pictureBox5.Click -= Player_Click;
+                        pictureBox6.Click -= Player_Click;
+                        pictureBox7.Click -= Player_Click;
+                        pictureBox8.Click -= Player_Click;
+                        pictureBox9.Click -= Player_Click;
+                    }
+                    timerAnimation.Stop();
+                }
             }
-            else if (label7.Text == label8.Text && label7.Text == label9.Text && label7.Text != "")
+            
+        }
+
+        private void TimerXWinner1_Tick(object sender, EventArgs e)
+        {
+            ++tickX;
+            if (tickX > 8)
             {
-                TimerWinner1.Start();
+
+                if (pictureBox1.Tag == pictureBox2.Tag && pictureBox1.Tag == pictureBox3.Tag && pictureBox1.Tag == "X")
+                {
+                    pictureBox1.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox2.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox3.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+                else if (pictureBox4.Tag == pictureBox5.Tag && pictureBox4.Tag == pictureBox6.Tag && pictureBox4.Tag == "X")
+                {
+                    pictureBox4.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox5.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox6.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+                else if (pictureBox7.Tag == pictureBox8.Tag && pictureBox7.Tag == pictureBox9.Tag && pictureBox7.Tag == "X")
+                {
+                    pictureBox7.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox8.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox9.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+                else if (pictureBox1.Tag == pictureBox4.Tag && pictureBox1.Tag == pictureBox7.Tag && pictureBox1.Tag == "X")
+                {
+                    pictureBox1.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox4.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox7.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+                else if (pictureBox2.Tag == pictureBox5.Tag && pictureBox2.Tag == pictureBox8.Tag && pictureBox2.Tag == "X")
+                {
+                    pictureBox2.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox5.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox8.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+                else if (pictureBox3.Tag == pictureBox6.Tag && pictureBox3.Tag == pictureBox9.Tag && pictureBox3.Tag == "X")
+                {
+                    pictureBox3.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox6.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox9.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+                else if (pictureBox1.Tag == pictureBox5.Tag && pictureBox1.Tag == pictureBox9.Tag && pictureBox1.Tag == "X")
+                {
+                    pictureBox1.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox5.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox9.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+                else if (pictureBox3.Tag == pictureBox5.Tag && pictureBox3.Tag == pictureBox7.Tag && pictureBox3.Tag == "X")
+                {
+                    pictureBox7.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox5.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox3.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+
             }
-            else if (label1.Text == label4.Text && label1.Text == label7.Text && label1.Text != "")
+            TimerXWinner1.Stop();
+            TimerXWinner2.Start();
+        }
+
+        private void TimerXWinner2_Tick(object sender, EventArgs e)
+        {
+
+            if (pictureBox1.Tag == pictureBox2.Tag && pictureBox1.Tag == pictureBox3.Tag && pictureBox1.Tag == "X")
             {
-                TimerWinner1.Start();
+                
+                pictureBox1.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox2.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox3.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
             }
-            else if (label2.Text == label5.Text && label2.Text == label8.Text && label2.Text != "")
+            else if (pictureBox4.Tag == pictureBox5.Tag && pictureBox4.Tag == pictureBox6.Tag && pictureBox4.Tag == "X")
             {
-                TimerWinner1.Start();
+                pictureBox4.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox5.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox6.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
             }
-            else if (label3.Text == label6.Text && label3.Text == label9.Text && label3.Text != "")
+            else if (pictureBox7.Tag == pictureBox8.Tag && pictureBox7.Tag == pictureBox9.Tag && pictureBox7.Tag == "X")
             {
-                TimerWinner1.Start();
+                pictureBox7.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox8.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox9.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
             }
-            else if (label1.Text == label5.Text && label1.Text == label9.Text && label1.Text != "")
+            else if (pictureBox1.Tag == pictureBox4.Tag && pictureBox1.Tag == pictureBox7.Tag && pictureBox1.Tag == "X")
             {
-                TimerWinner1.Start();
+                pictureBox1.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox4.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox7.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
             }
-            else if (label3.Text == label5.Text && label3.Text == label7.Text && label3.Text != "")
+            else if (pictureBox2.Tag == pictureBox5.Tag && pictureBox2.Tag == pictureBox8.Tag && pictureBox2.Tag == "X")
             {
-                TimerWinner1.Start();
+                pictureBox2.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox5.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox8.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+            else if (pictureBox3.Tag == pictureBox6.Tag && pictureBox3.Tag == pictureBox9.Tag && pictureBox3.Tag == "X")
+            {
+                pictureBox3.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox6.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox9.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+            else if (pictureBox1.Tag == pictureBox5.Tag && pictureBox1.Tag == pictureBox9.Tag && pictureBox1.Tag == "X")
+            {
+                pictureBox1.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox5.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox9.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+            else if (pictureBox3.Tag == pictureBox5.Tag && pictureBox3.Tag == pictureBox7.Tag && pictureBox3.Tag == "X")
+            {
+                pictureBox7.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox5.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox3.Image = (Image)Properties.Resources.ResourceManager.GetObject("X_Blue");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+            TimerXWinner2.Stop();
+            TimerXWinner1.Start();
+        }
+
+        private void TimerOWinner1_Tick(object sender, EventArgs e)  // manually created timer
+        {
+            ++tickO;
+            if (tickO > 16.5)
+            {
+
+                if (pictureBox1.Tag == pictureBox2.Tag && pictureBox1.Tag == pictureBox3.Tag && pictureBox1.Tag == "O")
+                {
+                    pictureBox1.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox2.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox3.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+                else if (pictureBox4.Tag == pictureBox5.Tag && pictureBox4.Tag == pictureBox6.Tag && pictureBox4.Tag == "O")
+                {
+                    pictureBox4.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox5.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox6.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+                else if (pictureBox7.Tag == pictureBox8.Tag && pictureBox7.Tag == pictureBox9.Tag && pictureBox7.Tag == "O")
+                {
+                    pictureBox7.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox8.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox9.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+                else if (pictureBox1.Tag == pictureBox4.Tag && pictureBox1.Tag == pictureBox7.Tag && pictureBox1.Tag == "O")
+                {
+                    pictureBox1.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox4.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox7.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+                else if (pictureBox2.Tag == pictureBox5.Tag && pictureBox2.Tag == pictureBox8.Tag && pictureBox2.Tag == "O")
+                {
+                    pictureBox2.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox5.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox8.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+                else if (pictureBox3.Tag == pictureBox6.Tag && pictureBox3.Tag == pictureBox9.Tag && pictureBox3.Tag == "O")
+                {
+                    pictureBox3.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox6.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox9.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+                else if (pictureBox1.Tag == pictureBox5.Tag && pictureBox1.Tag == pictureBox9.Tag && pictureBox1.Tag == "O")
+                {
+                    pictureBox1.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox5.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox9.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+                else if (pictureBox3.Tag == pictureBox5.Tag && pictureBox3.Tag == pictureBox7.Tag && pictureBox3.Tag == "O")
+                {
+                    pictureBox7.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox5.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox3.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Red");
+                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+                timerOWinner1.Stop();
+                timerOWinner2.Start();
             }
         }
 
-        private void TimerWinner1_Tick(object sender, EventArgs e)
+        private void TimerOWinner2_Tick(object sender, EventArgs e)  // manually created timer
         {
-            if (label1.Text == label2.Text && label1.Text == label3.Text && label1.Text != "")
+            if (pictureBox1.Tag == pictureBox2.Tag && pictureBox1.Tag == pictureBox3.Tag && pictureBox1.Tag == "O")
             {
-                label1.ForeColor = Color.Red;
-                label2.ForeColor = Color.Red;
-                label3.ForeColor = Color.Red;
-            }
-            else if (label4.Text == label5.Text && label4.Text == label6.Text && label4.Text != "")
-            {
-                label4.ForeColor = Color.Red;
-                label5.ForeColor = Color.Red;
-                label6.ForeColor = Color.Red;
-            }
-            else if (label7.Text == label8.Text && label7.Text == label9.Text && label7.Text != "")
-            {
-                label7.ForeColor = Color.Red;
-                label8.ForeColor = Color.Red;
-                label9.ForeColor = Color.Red;
-            }
-            else if (label1.Text == label4.Text && label1.Text == label7.Text && label1.Text != "")
-            {
-                label1.ForeColor = Color.Red;
-                label4.ForeColor = Color.Red;
-                label7.ForeColor = Color.Red;
-            }
-            else if (label2.Text == label5.Text && label2.Text == label8.Text && label2.Text != "")
-            {
-                label2.ForeColor = Color.Red;
-                label5.ForeColor = Color.Red;
-                label8.ForeColor = Color.Red;
-            }
-            else if (label3.Text == label6.Text && label3.Text == label9.Text && label3.Text != "")
-            {
-                label3.ForeColor = Color.Red;
-                label6.ForeColor = Color.Red;
-                label9.ForeColor = Color.Red;
-            }
-            else if (label1.Text == label5.Text && label1.Text == label9.Text && label1.Text != "")
-            {
-                label1.ForeColor = Color.Red;
-                label5.ForeColor = Color.Red;
-                label9.ForeColor = Color.Red;
-            }
-            else if (label3.Text == label5.Text && label3.Text == label7.Text && label3.Text != "")
-            {
-                label7.ForeColor = Color.Red;
-                label5.ForeColor = Color.Red;
-                label3.ForeColor = Color.Red;
-            }
-            TimerWinner1.Stop();
-            TimerWinner2.Start();
-        }
 
-        private void TimerWinner2_Tick(object sender, EventArgs e)
-        {
-            if (label1.Text == label2.Text && label1.Text == label3.Text && label1.Text != "")
-            {
-                label1.ForeColor = Color.Black;
-                label2.ForeColor = Color.Black;
-                label3.ForeColor = Color.Black;
+                pictureBox1.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox2.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox3.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
             }
-            else if (label4.Text == label5.Text && label4.Text == label6.Text && label4.Text != "")
+            else if (pictureBox4.Tag == pictureBox5.Tag && pictureBox4.Tag == pictureBox6.Tag && pictureBox4.Tag == "O")
             {
-                label4.ForeColor = Color.Black;
-                label5.ForeColor = Color.Black;
-                label6.ForeColor = Color.Black;
+                pictureBox4.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox5.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox6.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
             }
-            else if (label7.Text == label8.Text && label7.Text == label9.Text && label7.Text != "")
+            else if (pictureBox7.Tag == pictureBox8.Tag && pictureBox7.Tag == pictureBox9.Tag && pictureBox7.Tag == "O")
             {
-                label7.ForeColor = Color.Black;
-                label8.ForeColor = Color.Black;
-                label9.ForeColor = Color.Black;
+                pictureBox7.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox8.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox9.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
             }
-            else if (label1.Text == label4.Text && label1.Text == label7.Text && label1.Text != "")
+            else if (pictureBox1.Tag == pictureBox4.Tag && pictureBox1.Tag == pictureBox7.Tag && pictureBox1.Tag == "O")
             {
-                label1.ForeColor = Color.Black;
-                label4.ForeColor = Color.Black;
-                label7.ForeColor = Color.Black;
+                pictureBox1.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox4.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox7.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
             }
-            else if (label2.Text == label5.Text && label2.Text == label8.Text && label2.Text != "")
+            else if (pictureBox2.Tag == pictureBox5.Tag && pictureBox2.Tag == pictureBox8.Tag && pictureBox2.Tag == "O")
             {
-                label2.ForeColor = Color.Black;
-                label5.ForeColor = Color.Black;
-                label8.ForeColor = Color.Black;
+                pictureBox2.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox5.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox8.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
             }
-            else if (label3.Text == label6.Text && label3.Text == label9.Text && label3.Text != "")
+            else if (pictureBox3.Tag == pictureBox6.Tag && pictureBox3.Tag == pictureBox9.Tag && pictureBox3.Tag == "O")
             {
-                label3.ForeColor = Color.Black;
-                label6.ForeColor = Color.Black;
-                label9.ForeColor = Color.Black;
+                pictureBox3.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox6.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox9.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
             }
-            else if (label1.Text == label5.Text && label1.Text == label9.Text && label1.Text != "")
+            else if (pictureBox1.Tag == pictureBox5.Tag && pictureBox1.Tag == pictureBox9.Tag && pictureBox1.Tag == "O")
             {
-                label1.ForeColor = Color.Black;
-                label5.ForeColor = Color.Black;
-                label9.ForeColor = Color.Black;
+                pictureBox1.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox5.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox9.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
             }
-            else if (label3.Text == label5.Text && label3.Text == label7.Text && label3.Text != "")
+            else if (pictureBox3.Tag == pictureBox5.Tag && pictureBox3.Tag == pictureBox7.Tag && pictureBox3.Tag == "O")
             {
-                label7.ForeColor = Color.Black;
-                label5.ForeColor = Color.Black;
-                label3.ForeColor = Color.Black;
+                pictureBox7.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox5.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox3.Image = (Image)Properties.Resources.ResourceManager.GetObject("O_Orange");
+                picture.SizeMode = PictureBoxSizeMode.StretchImage;
             }
-            TimerWinner2.Stop();
-            TimerWinner1.Start();
+            timerOWinner2.Stop();
+            timerOWinner1.Start();
         }
 
         private void Form1_Load(object sender, EventArgs e)

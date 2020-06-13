@@ -93,15 +93,45 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="click_sound.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\beep_sound.wav" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="cheer3.wav" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Sprites\O_Red.jpg" />
+    <None Include="Sprites\X_001.jpg" />
+    <None Include="Sprites\X_002.jpg" />
+    <None Include="Sprites\X_003.jpg" />
+    <None Include="Sprites\X_004.jpg" />
+    <None Include="Sprites\X_005.jpg" />
+    <None Include="Sprites\X_006.jpg" />
+    <None Include="Sprites\X_007.jpg" />
+    <None Include="Sprites\X_008.jpg" />
+    <None Include="Sprites\X_009.jpg" />
+    <None Include="Sprites\X_010.jpg" />
+    <None Include="Sprites\X_011.jpg" />
+    <None Include="Sprites\X_012.jpg" />
+    <None Include="Sprites\X_013.jpg" />
+    <None Include="Sprites\X_014.jpg" />
+    <None Include="Sprites\X_015.jpg" />
+    <None Include="Sprites\X_Red.jpg" />
+    <None Include="Sprites\O_001.jpg" />
+    <None Include="Sprites\O_002.jpg" />
+    <None Include="Sprites\O_003.jpg" />
+    <None Include="Sprites\O_004.jpg" />
+    <None Include="Sprites\O_005.jpg" />
+    <None Include="Sprites\O_006.jpg" />
+    <None Include="Sprites\O_007.jpg" />
+    <None Include="Sprites\O_008.jpg" />
+    <None Include="Sprites\O_009.jpg" />
+    <None Include="Sprites\O_010.jpg" />
+    <None Include="Sprites\O_011.jpg" />
+    <None Include="Sprites\O_012.jpg" />
+    <None Include="Sprites\O_015.jpg" />
+    <None Include="Sprites\O_013.jpg" />
+    <None Include="Sprites\O_014.jpg" />
+    <None Include="Sprites\X_Blue.jpg" />
+    <None Include="Sprites\O_Orange.jpg" />
+    <None Include="Resources\X_sound.wav" />
+    <None Include="Resources\O_sound.wav" />
     <Content Include="Tic-Tac-Toe-Game-red.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

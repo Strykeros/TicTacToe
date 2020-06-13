@@ -121,7 +121,112 @@
   <data name="cheer3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\cheer3.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="click_sound" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\click_sound.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="O_001" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\O_001.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="O_002" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\O_002.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="O_003" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\O_003.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="O_004" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\O_004.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="O_005" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\O_005.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="O_006" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\O_006.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="O_007" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\O_007.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="O_008" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\O_008.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="O_009" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\O_009.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="O_010" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\O_010.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="O_011" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\O_011.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="O_012" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\O_012.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="O_013" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\O_013.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="O_014" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\O_014.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="O_015" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\O_015.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="O_Orange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\O_Orange.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="O_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\O_Red.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="O_sound" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\O_sound.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="X_001" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\X_001.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="X_002" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\X_002.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="X_003" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\X_003.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="X_004" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\X_004.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="X_005" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\X_005.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="X_006" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\X_006.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="X_007" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\X_007.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="X_008" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\X_008.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="X_009" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\X_009.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="X_010" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\X_010.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="X_011" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\X_011.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="X_012" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\X_012.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="X_013" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\X_013.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="X_014" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\X_014.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="X_015" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\X_015.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="X_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\X_Blue.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="X_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Sprites\X_Red.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="X_sound" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\X_sound.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
